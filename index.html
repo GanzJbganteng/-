@@ -4,82 +4,76 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Zenix Web Tools</title>
-
   <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="sidebar-closed">
+<body>
+  <button class="ham" onclick="toggleSidebar()">☰</button>
 
-  <!-- hamburger -->
-  <button id="hamBtn" class="ham">☰</button>
-
-  <!-- SIDEBAR -->
-  <aside id="sidebar" class="sidebar closed">
+  <aside class="sidebar" id="sidebar">
     <div class="logo">Zenix Web Tools</div>
     <nav>
       <ul>
-        <li><a data-page="welcome"    href="#" class="active"><i data-lucide="home"></i> Beranda</a></li>
-        <li><a data-page="func"       href="#"><i data-lucide="bug"></i> Func Bug</a></li>
-        <li><a data-page="preset"     href="#"><i data-lucide="sparkles"></i> Preset AM</a></li>
-        <li><a data-page="about"      href="#"><i data-lucide="info"></i> Tentang</a></li>
+        <li><a href="#welcome" class="active"><i data-lucide="home"></i> Welcome</a></li>
+        <li><a href="#func"><i data-lucide="bug"></i> Func Bug</a></li>
+        <li><a href="#preset"><i data-lucide="file-down"></i> Preset AM</a></li>
+        <li><a href="#about"><i data-lucide="info"></i> Tentang</a></li>
       </ul>
     </nav>
     <button id="themeToggle">🌓</button>
   </aside>
 
-  <!-- MAIN CONTENT -->
   <main class="content">
-    <!-- Welcome -->
-    <section id="welcomeSection" class="page">
-      <header class="hero">
-        <h1 class="glow-h1">Selamat Datang</h1>
-        <p class="glow-sub">Pusat Func Bug & Tools Sederhana</p>
-      </header>
+    <section id="welcome" class="page">
+      <div class="hero">
+        <h1 class="glow-h1">Selamat Datang di Zenix Web Tools</h1>
+        <p class="glow-sub">Pusat tools dan func bug ringan & simple</p>
+      </div>
     </section>
 
-    <!-- Func Bug -->
-    <section id="funcSection" class="page hidden">
-      <h2 class="title-page">Func Bug Zone</h2>
-      <div id="bugContainer" class="bug-list"></div>
+    <section id="func" class="page hidden">
+      <h2 class="title-page">Func Bug Crash</h2>
+      <div class="bug-list" id="bugList">
+        <!-- func.js akan isi otomatis -->
+      </div>
     </section>
 
-    <!-- Preset AM -->
-    <section id="presetSection" class="page hidden">
+    <section id="preset" class="page hidden">
       <h2 class="title-page">Preset Alight Motion</h2>
-      <input id="presetSearch" class="preset-search" placeholder="Cari preset…"/>
-      <div id="presetList" class="preset-wrap"></div>
+      <div class="bug-list" id="presetList">
+        <!-- preset.js akan isi otomatis -->
+      </div>
     </section>
 
-    <!-- About -->
-    <section id="aboutSection" class="page hidden">
+    <section id="about" class="page hidden">
       <h2 class="title-page">Tentang</h2>
-      <p>Halo, saya <strong>Rofik</strong>. Goal-nya: berbagi func bug & tool gratis untuk semua 😎</p>
+      <p>Web ini dibuat untuk berbagi tools, preset AM, dan func bug WA secara gratis. Dibuat oleh Zenix, bukan Kairo 😎</p>
     </section>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="site-foot">
-    <small>© 2025 Zenix Web. Semua hak dilindungi.</small>
+  <footer>
+    <div class="footer-bottom">
+      <div class="theme-toggle">
+        <span>Terang</span>
+        <label class="switch">
+          <input type="checkbox" id="toggleMode" />
+          <span class="slider round"></span>
+        </label>
+        <span>Gelap</span>
+      </div>
 
-    <label class="switch">
-      <span>Terang</span>
-      <input type="checkbox" id="modeSwitch">
-      <span class="slider"></span>
-      <span>Gelap</span>
-    </label>
-
-    <div class="contacts">
-      <a href="https://wa.me/6281234567890" target="_blank" title="WhatsApp"><i data-lucide="phone"></i></a>
-      <a href="https://t.me/username"      target="_blank" title="Telegram"><i data-lucide="send"></i></a>
+      <div class="footer-links">
+        <a href="https://wa.me/6283169687238" target="_blank"><i data-lucide="phone"></i></a>
+        <a href="https://t.me/rofikos" target="_blank"><i data-lucide="send"></i></a>
+      </div>
     </div>
   </footer>
 
-  <div id="toastContainer" class="toast-container"></div>
-
-  <!-- SCRIPTS -->
-  <script src="preset.js"></script>
-  <script src="func.js"></script>  <!--  ✅ load fungsi bug -->
   <script src="script.js"></script>
-  <script>lucide.createIcons();</script>
+  <script src="func.js"></script>
+  <script src="preset.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
