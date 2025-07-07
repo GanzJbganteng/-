@@ -1,25 +1,22 @@
-/* ─────────────── Zenix Web Tools – script.js (FULL) ─────────────── */
+/* ───────────── Zenix Web Tools – script.js (FULL) ───────────── */
 document.addEventListener('DOMContentLoaded', () => {
-  /* ELEMENTS */
   const sidebar   = document.getElementById('sidebar');
   const hamBtn    = document.querySelector('.ham');
-  const navLinks  = sidebar.querySelectorAll('a[href^="#"]');
   const themeBtn  = document.getElementById('themeToggle');
+  const navLinks  = sidebar.querySelectorAll('a[href^="#"]');
   const pages     = document.querySelectorAll('.page');
 
-  /* ── 1. SIDEBAR toggle ─────────────────────────────────────────── */
+  /* ── SIDEBAR ─────────────────────────── */
   function toggleSidebar () {
-    sidebar.classList.toggle('open');                    // ← sinkron dg CSS
-    document.body.classList.toggle(
-      'sidebar-closed',
-      !sidebar.classList.contains('open')
-    );
+    sidebar.classList.toggle('open');
+    document.body.classList.toggle('sidebar-closed',
+      !sidebar.classList.contains('open'));
   }
   hamBtn.addEventListener('click', toggleSidebar);
-  window.toggleSidebar = toggleSidebar; // agar atribut HTML onclick bekerja
+  window.toggleSidebar = toggleSidebar; // agar onclick inline jalan
 
-  /* ── 2. PAGE routing -------------------------------------------------- */
-  function show (id) {
+  /* ── PAGE ROUTING ────────────────────── */
+  function show(id) {
     pages.forEach(sec => sec.classList.toggle('hidden', sec.id !== id));
   }
   navLinks.forEach(link => {
@@ -32,48 +29,41 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('sidebar-closed');
     });
   });
-  show('welcome'); // default
+  show('welcome');
 
-  /* ── 3. THEME switch -------------------------------------------------- */
+  /* ── THEME ───────────────────────────── */
   if (localStorage.getItem('zen.theme') === 'light') {
     document.body.classList.add('light');
     themeBtn.textContent = '☀️';
   }
   themeBtn.addEventListener('click', () => {
-    const light = document.body.classList.toggle('light');
-    themeBtn.textContent = light ? '☀️' : '🌓';
-    localStorage.setItem('zen.theme', light ? 'light' : 'dark');
+    const l = document.body.classList.toggle('light');
+    themeBtn.textContent = l ? '☀️' : '🌓';
+    localStorage.setItem('zen.theme', l ? 'light' : 'dark');
   });
 
-  /* ── 4. FUNC BUG list (contoh) --------------------------------------- */
+  /* ── FUNC BUG RENDER ─────────────────── */
   if (typeof bugData !== 'undefined') {
-    const wrap = document.getElementById('bugList');
-    bugData.forEach((b, i) => {
+    const box = document.getElementById('bugList');
+    bugData.forEach((b,i) => {
       const div = document.createElement('div');
       div.className = 'bug';
-      div.innerHTML =
-        `<span>${b.title}</span>
-         <button onclick="copyBug(${i})">Copy</button>`;
-      wrap.appendChild(div);
+      div.innerHTML = `<span>${b.title}</span>
+                       <button onclick="copyBug(${i})">Copy</button>`;
+      box.appendChild(div);
     });
   }
   window.copyBug = idx =>
-    navigator.clipboard
-      .writeText(atob(bugData[idx].funcB64))
-      .then(() => toast('✅ Copied!'))
-      .catch(() => toast('❌ Gagal menyalin', true));
+    navigator.clipboard.writeText(atob(bugData[idx].funcB64))
+      .then(()=>toast('✅ Copied!'))
+      .catch(()=>toast('❌ Gagal',true));
 
-  /* ── 5. TOAST --------------------------------------------------------- */
-  function toast (msg, err = false) {
-    const box = document.getElementById('toastContainer');
-    const div = document.createElement('div');
-    div.className = 'toast';
-    if (err) div.style.borderLeftColor = 'red';
-    div.textContent = msg;
-    box.appendChild(div);
-    setTimeout(() => {
-      div.style.opacity = 0;
-      setTimeout(() => box.removeChild(div), 500);
-    }, 2200);
+  /* ── TOAST ───────────────────────────── */
+  function toast(msg, err=false){
+    const c = document.getElementById('toastContainer');
+    const d = document.createElement('div');
+    d.className='toast'; if(err)d.style.borderLeftColor='red';
+    d.textContent = msg; c.appendChild(d);
+    setTimeout(()=>{d.style.opacity=0;setTimeout(()=>c.removeChild(d),500)},2300);
   }
 });
